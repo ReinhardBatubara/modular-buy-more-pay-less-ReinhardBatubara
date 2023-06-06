@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="MSS"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2022-11-18 09:25:36 AM"/>
+        <attribute name="created" value="TVNTO0RFU0tUT1AtNjc1R0w5STsyMDIxLTA5LTE0OzA5OjMyOjMxIFBNOzI1NDY="/>
+        <attribute name="edited" value="TVNTO0RFU0tUT1AtNjc1R0w5STsyMDIxLTEwLTA1OzA0OjIxOjU4IFBNOzE7TVNTO0RFU0tUT1AtNjc1R0w5STsyMDIxLTA5LTE0OzA5OjMyOjMxIFBNO1EwMS5mcHJnOzU5Njc="/>
+        <attribute name="edited" value="TVNTO0RFU0tUT1AtNjc1R0w5STsyMDIxLTEwLTIyOzA3OjAzOjEzIFBNOzY0OzI2OTg="/>
+        <attribute name="edited" value="QVNVUztQSU1QSU47MjAyMi0xMC0yNzswNTozNTo0OCBQTTs1O01TUztERVNLVE9QLTY3NUdMOUk7MjAyMS0wOS0xNDswOTozMjozMSBQTTtUMDQgKDEpLmZwcmc7NTY2MQ=="/>
+        <attribute name="edited" value="QVNVUztQSU1QSU47MjAyMi0xMC0yODswODoxMjo1MSBBTTs2OzIxNTM="/>
+        <attribute name="edited" value="YWNlcjtMQVBUT1AtTzMzNlE5Qk87MjAyMi0xMS0xODswOToyNTozNiBBTTszMDsyODY3"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="isbn" type="String" array="False" size=""/>
+            <declare name="harga" type="Real" array="False" size=""/>
+            <declare name="eksemplar" type="Integer" array="False" size=""/>
+            <declare name="exist" type="Boolean" array="False" size=""/>
+            <declare name="indexFound" type="Boolean" array="False" size=""/>
+            <declare name="y" type="Integer" array="False" size=""/>
+            <declare name="harga1" type="Real" array="False" size=""/>
+            <declare name="nBuku" type="Integer" array="False" size=""/>
+            <assign variable="nBuku" expression="3"/>
+            <declare name="arrayIsbn" type="String" array="True" size="nBuku"/>
+            <declare name="arrayharga" type="Real" array="True" size="nBuku"/>
+            <declare name="arrayeksemplar" type="Integer" array="True" size="nBuku"/>
+            <declare name="x" type="Integer" array="False" size=""/>
+            <declare name="arrayeksemplar1" type="Integer" array="False" size=""/>
+            <declare name="arrayharga1" type="Real" array="False" size=""/>
+            <call expression="decleare(arrayharga, arrayeksemplar, arrayIsbn)"/>
+            <declare name="totalharga" type="Real" array="False" size=""/>
+            <assign variable="totalharga" expression="0"/>
+            <declare name="continue" type="Boolean" array="False" size=""/>
+            <assign variable="continue" expression="true"/>
+            <while expression="continue">
+                <input variable="isbn"/>
+                <if expression="isbn != &quot;---&quot;">
+                    <then>
+                        <input variable="harga"/>
+                        <input variable="eksemplar"/>
+                        <assign variable="exist" expression="false"/>
+                        <assign variable="x" expression="0"/>
+                        <do expression="!exist &amp;&amp; x &lt; nBuku">
+                            <if expression="arrayIsbn[x] == isbn">
+                                <then>
+                                    <assign variable="arrayeksemplar[x]" expression="arrayeksemplar[x] + eksemplar"/>
+                                    <assign variable="exist" expression="true"/>
+                                </then>
+                                <else>
+                                    <assign variable="x" expression="x + 1"/>
+                                </else>
+                            </if>
+                        </do>
+                        <if expression="!exist">
+                            <then>
+                                <assign variable="indexFound" expression="false"/>
+                                <assign variable="y" expression="0"/>
+                                <do expression="!indexFound &amp;&amp; (y &lt; nBuku)">
+                                    <if expression="arrayeksemplar[y] == 0">
+                                        <then>
+                                            <assign variable="indexFound" expression="true"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="y" expression="y + 1"/>
+                                        </else>
+                                    </if>
+                                </do>
+                                <assign variable="arrayIsbn[y]" expression="isbn"/>
+                                <assign variable="arrayharga[y]" expression="harga"/>
+                                <assign variable="arrayeksemplar[y]" expression="eksemplar"/>
+                                <assign variable="y" expression="y + 1"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </then>
+                    <else>
+                        <assign variable="continue" expression="false"/>
+                    </else>
+                </if>
+            </while>
+            <for variable="x" start="0" end="nBuku - 1" direction="inc" step="1">
+                <assign variable="harga1" expression="arrayharga[x]"/>
+                <assign variable="arrayharga1" expression="arrayharga[x]"/>
+                <assign variable="arrayeksemplar1" expression="arrayeksemplar[x]"/>
+                <call expression="harga(harga1, arrayharga1, arrayeksemplar1)"/>
+                <declare name="harga2" type="Real" array="False" size=""/>
+                <assign variable="harga2" expression="harga(harga1, arrayharga1, arrayeksemplar1)"/>
+                <assign variable="arrayharga1" expression="arrayharga[x]"/>
+                <assign variable="arrayeksemplar1" expression="arrayeksemplar[x]"/>
+                <assign variable="totalharga" expression="totalharga + harga2"/>
+            </for>
+            <call expression="keluaran(totalharga)"/>
+        </body>
+    </function>
+    <function name="decleare" type="None" variable="decleare">
+        <parameters>
+            <parameter name="arrayharga" type="Real" array="True"/>
+            <parameter name="arrayeksemplar" type="Integer" array="True"/>
+            <parameter name="arrayIsbn" type="String" array="True"/>
+        </parameters>
+        <body>
+            <declare name="nBuku, x" type="Integer" array="False" size=""/>
+            <assign variable="nBuku" expression="3"/>
+            <for variable="x" start="0" end="nBuku - 1" direction="inc" step="1">
+                <assign variable="arrayIsbn[x]" expression="&quot;0&quot;"/>
+                <assign variable="arrayharga[x]" expression="0.0"/>
+                <assign variable="arrayeksemplar[x]" expression="0"/>
+            </for>
+        </body>
+    </function>
+    <function name="harga" type="Real" variable="harga2">
+        <parameters>
+            <parameter name="harga2" type="Real" array="False"/>
+            <parameter name="arrayharga1" type="Real" array="False"/>
+            <parameter name="arrayeksemplar1" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="harga" type="Real" array="False" size=""/>
+            <if expression="arrayeksemplar1 &gt;= 20">
+                <then>
+                    <assign variable="harga2" expression="(arrayharga1*arrayeksemplar1) - ((arrayharga1*arrayeksemplar1) * 0.12)"/>
+                </then>
+                <else>
+                    <if expression="arrayeksemplar1 &gt;= 10">
+                        <then>
+                            <assign variable="harga2" expression="(arrayharga1*arrayeksemplar1) - ((arrayharga1*arrayeksemplar1) * 0.05)"/>
+                        </then>
+                        <else>
+                            <if expression="arrayeksemplar1 &gt;= 5">
+                                <then>
+                                    <assign variable="harga2" expression="(arrayharga1*arrayeksemplar1) - ((arrayharga1*arrayeksemplar1) * 0.02)"/>
+                                </then>
+                                <else>
+                                    <assign variable="harga2" expression="arrayharga1*arrayeksemplar1"/>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="keluaran" type="None" variable="">
+        <parameters>
+            <parameter name="totalharga" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <output expression="toFixed(totalharga, 2)" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
